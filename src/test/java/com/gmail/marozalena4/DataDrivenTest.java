@@ -14,23 +14,21 @@ import java.util.Map;
 public class DataDrivenTest {
 
     @Test
-    public void shouldConvertNumberToString() {
+    public void shouldConvertNumberToString(){
+        String fileName = System.getProperty("user.dir")
+                + "/src/test/resources/numbersForTest.txt";
         ConverterImpl converter = new ConverterImpl();
-        Map<Long, String> pairs = init();
-        for (Map.Entry<Long, String> pair : pairs.entrySet()) {
-            String string = converter.convertNumberToString(pair.getKey());
-            String standard = pair.getValue();
-            Assert.assertEquals("Incorrect", standard, string);
+        String [] test;
+        try (BufferedReader reader = new BufferedReader(new java.io.FileReader(fileName))) {
+            while (reader.ready()) {
+                test = reader.readLine().split(", ");
+                String string = converter.convertNumberToString(Long.parseLong(test[0]));
+                String standard = test[1];
+                Assert.assertEquals("Incorrect", standard, string);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-
-    @Parameterized.Parameters
-    public static Map<Long, String> init() {
-        Map<Long, String> map = new HashMap<>();
-        map.put(13568654L, "тринадцать миллионов пятьсот шестьдесят восемь тысяч шестьсот пятьдесят четыре");
-        map.put(1567397L, "один миллион пятьсот шестьдесят семь тысяч триста девяносто семь");
-        map.put(15470874650L, "пятнадцать миллиардов четыреста семьдесят миллионов восемьсот семьдесят четыре тысячи шестьсот пятьдесят");
-        return map;
     }
 
 }
