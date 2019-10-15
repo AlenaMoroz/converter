@@ -1,6 +1,8 @@
 package com.gmail.marozalena4.service;
 
+import java.math.BigInteger;
+
 public interface Converter {
 
-    String convertNumberToString(Long number);
+    String convertNumberToString(BigInteger number);
 }

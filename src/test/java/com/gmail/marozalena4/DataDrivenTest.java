@@ -3,26 +3,23 @@ package com.gmail.marozalena4;
 import com.gmail.marozalena4.service.impl.ConverterImpl;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runners.Parameterized;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DataDrivenTest {
 
     @Test
-    public void shouldConvertNumberToString(){
+    public void shouldConvertNumberToString() {
         String fileName = System.getProperty("user.dir")
                 + "/src/test/resources/numbersForTest.txt";
         ConverterImpl converter = new ConverterImpl();
-        String [] test;
+        String[] test;
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(fileName))) {
             while (reader.ready()) {
                 test = reader.readLine().split(", ");
-                String string = converter.convertNumberToString(Long.parseLong(test[0]));
+                String string = converter.convertNumberToString(new BigInteger(test[0]));
                 String standard = test[1];
                 Assert.assertEquals("Incorrect", standard, string);
             }
